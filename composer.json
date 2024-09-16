@@ -1,0 +1,21 @@
+{
+    "name": "mariodevv/eloquent-criteria-package",
+    "description": "A package to apply criteria pattern to Eloquent models",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Mariodevv\\EloquentCriteriaPackage\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "MarioDevv",
+            "email": "perezmario.info@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "illuminate/database": "^8.0"
+    }
+}
