@@ -1,9 +1,9 @@
 <?php
 
-namespace Mariodevv\EloquentCriteriaPackage\Infrastructure\Criteria;
+namespace Mariodevv\phpcriteriapackage\Infrastructure\Criteria;
 
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Criteria;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\QueryAdapter;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\Criteria;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\QueryAdapter;
 
 class CriteriaBuilder
 {

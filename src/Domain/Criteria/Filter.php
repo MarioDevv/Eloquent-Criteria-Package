@@ -1,6 +1,6 @@
 <?php
 
-namespace Mariodevv\EloquentCriteriaPackage\Domain\Criteria;
+namespace Mariodevv\phpcriteriapackage\Domain\Criteria;
 
 use Carbon\Carbon;
 

@@ -5,9 +5,9 @@ namespace Tests\Unit\Criteria;
 use Mockery;
 use Tests\TestCase;
 use Illuminate\Database\Eloquent\Builder;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Criteria;
-use Mariodevv\EloquentCriteriaPackage\Infrastructure\Criteria\CriteriaBuilder;
-use Mariodevv\EloquentCriteriaPackage\Infrastructure\Criteria\EloquentQueryAdapter;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\Criteria;
+use Mariodevv\phpcriteriapackage\Infrastructure\Criteria\CriteriaBuilder;
+use Mariodevv\phpcriteriapackage\Infrastructure\Criteria\EloquentQueryAdapter;
 
 class CriteriaBuilderTest extends TestCase
 {

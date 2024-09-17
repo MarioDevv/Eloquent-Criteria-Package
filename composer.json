@@ -1,11 +1,11 @@
 {
-    "name": "mariodevv/eloquent-criteria-package",
-    "description": "A package to apply criteria pattern to Eloquent models",
+    "name": "mariodevv/php-criteria-package",
+    "description": "A simple package to apply criteria in Eloquent and Doctrine",
     "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Mariodevv\\EloquentCriteriaPackage\\": "src/",
+            "Mariodevv\\phpcriteriapackage\\": "src/",
              "Tests\\": "tests/"
         }
     },

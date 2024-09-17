@@ -1,17 +1,17 @@
 <?php
 
-namespace Mariodevv\EloquentCriteriaPackage\Infrastructure\Criteria;
+namespace Mariodevv\phpcriteriapackage\Infrastructure\Criteria;
 
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Operator;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\FilterOperator;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Filters\LikeFilter;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Filters\QueryFilter;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Filters\IsNullFilter;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Filters\BetweenFilter;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Filters\EqualFilter;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Filters\RelationFilter;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Filters\IsNotNullFilter;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Filters\NotLikeFilter;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\Operator;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\FilterOperator;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\Filters\LikeFilter;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\Filters\QueryFilter;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\Filters\IsNullFilter;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\Filters\BetweenFilter;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\Filters\EqualFilter;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\Filters\RelationFilter;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\Filters\IsNotNullFilter;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\Filters\NotLikeFilter;
 
 
 class FilterFactory

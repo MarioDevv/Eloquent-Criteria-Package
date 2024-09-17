@@ -1,7 +1,7 @@
 <?php
-namespace Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Filters;
+namespace Mariodevv\phpcriteriapackage\Domain\Criteria\Filters;
 
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Filter;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\Filter;
 
 
 

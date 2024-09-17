@@ -6,12 +6,12 @@ use Mockery;
 use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Database\Eloquent\Builder;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Filter;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\FilterField;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\FilterOperator;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\FilterValue;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Operator;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Filters\WhereDateFilter;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\Filter;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\FilterField;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\FilterOperator;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\FilterValue;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\Operator;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\Filters\WhereDateFilter;
 
 class WhereDateFilterTest extends TestCase
 {

@@ -1,7 +1,7 @@
 <?php
 declare (strict_types = 1);
 
-namespace Mariodevv\EloquentCriteriaPackage\Domain\Criteria;
+namespace Mariodevv\phpcriteriapackage\Domain\Criteria;
 
 
 class Order

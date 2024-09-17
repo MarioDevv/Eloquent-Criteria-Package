@@ -1,10 +1,10 @@
 <?php
 
-namespace Mariodevv\EloquentCriteriaPackage\Infrastructure\Criteria;
+namespace Mariodevv\phpcriteriapackage\Infrastructure\Criteria;
 
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Filter;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Order;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\QueryAdapter;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\Filter;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\Order;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\QueryAdapter;
 use Illuminate\Database\Eloquent\Builder;
 
 class EloquentQueryAdapter implements QueryAdapter

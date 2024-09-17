@@ -1,10 +1,10 @@
 <?php
 
-namespace Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Filters;
+namespace Mariodevv\phpcriteriapackage\Domain\Criteria\Filters;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Filter;
+use Mariodevv\phpcriteriapackage\Domain\Criteria\Filter;
 
 class WhereDateFilter implements QueryFilter
 {
