@@ -5,114 +5,81 @@ namespace Tests\Unit\Criteria;
 use Mockery;
 use Tests\TestCase;
 use Illuminate\Database\Eloquent\Builder;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Order;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Filter;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Filters;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\OrderBy;
 use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Criteria;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Operator;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\OrderType;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\OrderTypes;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\FilterField;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\FilterValue;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\FilterOperator;
 use Mariodevv\EloquentCriteriaPackage\Infrastructure\Criteria\CriteriaBuilder;
+use Mariodevv\EloquentCriteriaPackage\Infrastructure\Criteria\EloquentQueryAdapter;
 
 class CriteriaBuilderTest extends TestCase
 {
-    public function test_apply_criteria_with_like_filter()
+    public function test_find_one_record()
     {
-        // Usamos Mockery para simular el Builder de Eloquent
         $builder = Mockery::mock(Builder::class);
 
-        // Definimos el comportamiento esperado del filtro like
-        $builder->shouldReceive('where')
+        $builder->shouldReceive('first')
             ->once()
-            ->with('name', 'like', '%test%')
-            ->andReturnSelf();
+            ->andReturn('single_record');
 
-        // Simulación del método orderBy
-        $builder->shouldReceive('orderBy')
-            ->once()
-            ->with('created_at', 'desc')
-            ->andReturnSelf();
+        $adapter = new EloquentQueryAdapter($builder);
+        $criteriaBuilder = new CriteriaBuilder($adapter);
 
-        // Creamos una instancia de CriteriaBuilder
-        $criteriaBuilder = new CriteriaBuilder();
+        $criteria = Criteria::none();
 
-        // Creamos un filtro like
-        $likeFilter = new Filter(
-            new FilterField('name'),
-            new FilterOperator(Operator::LIKE),
-            new FilterValue('test')
-        );
+        $result = $criteriaBuilder->findOne($criteria);
 
-        // Creamos el OrderBy
-        $orderBy = new Order(
-            new OrderBy('created_at'),
-            new OrderType(OrderTypes::DESC)
-        );
-
-        // Creamos los Filtros
-        $filters = new Filters([$likeFilter]);
-
-        // Creamos una instancia de Criteria
-        $criteria = new Criteria($filters, $orderBy, 1, 10);
-
-        // Aplicamos los criterios al builder
-        $result = $criteriaBuilder->apply($builder, $criteria);
-
-        // Verificamos que el método `apply` retorna el mismo builder
-        $this->assertInstanceOf(Builder::class, $result);
-
-        // Comprar propiedades del builder con los valores esperados
-        $this->assertEquals($builder, $result);
+        $this->assertEquals('single_record', $result);
     }
 
-    public function test_apply_criteria_with_equal_filter()
+    public function test_find_many_records()
     {
-        // Usamos Mockery para simular el Builder de Eloquent
         $builder = Mockery::mock(Builder::class);
 
-        // Definimos el comportamiento esperado del filtro igual
-        $builder->shouldReceive('where')
+        $builder->shouldReceive('get')
             ->once()
-            ->with('id', '=', 1)  // Comparamos con el valor del operador, no el objeto completo
-            ->andReturnSelf();
+            ->andReturn('multiple_records');
 
-        // Simulación del método orderBy
-        $builder->shouldReceive('orderBy')
+        $adapter = new EloquentQueryAdapter($builder);
+        $criteriaBuilder = new CriteriaBuilder($adapter);
+
+        $criteria = Criteria::none();
+
+        $result = $criteriaBuilder->findMany($criteria);
+
+        $this->assertEquals('multiple_records', $result);
+    }
+
+    public function test_find_all_records()
+    {
+        $builder = Mockery::mock(Builder::class);
+
+        $builder->shouldReceive('get')
             ->once()
-            ->with('created_at', 'desc')
-            ->andReturnSelf();
+            ->andReturn('all_records');
 
-        // Creamos una instancia de CriteriaBuilder
-        $criteriaBuilder = new CriteriaBuilder();
+        $adapter = new EloquentQueryAdapter($builder);
+        $criteriaBuilder = new CriteriaBuilder($adapter);
 
-        // Creamos un filtro igual (EQUAL)
-        $equalFilter = new Filter(
-            new FilterField('id'),
-            new FilterOperator(Operator::EQUAL),
-            new FilterValue(1)
-        );
+        $result = $criteriaBuilder->findAll();
 
-        // Creamos el OrderBy
-        $orderBy = new Order(
-            new OrderBy('created_at'),
-            new OrderType(OrderTypes::DESC)
-        );
+        $this->assertEquals('all_records', $result);
+    }
 
-        // Creamos los Filtros
-        $filters = new Filters([$equalFilter]);
+    public function test_paginate_records()
+    {
+        $builder = Mockery::mock(Builder::class);
 
-        // Creamos una instancia de Criteria
-        $criteria = new Criteria($filters, $orderBy, 1, 10);
+        $builder->shouldReceive('paginate')
+            ->once()
+            ->with(10, ['*'], 'page', 1)
+            ->andReturn('paginated_records');
 
-        // Aplicamos los criterios al builder
-        $result = $criteriaBuilder->apply($builder, $criteria);
+        $adapter = new EloquentQueryAdapter($builder);
+        $criteriaBuilder = new CriteriaBuilder($adapter);
 
-        // Verificamos que el método `apply` retorna el mismo builder
-        $this->assertInstanceOf(Builder::class, $result);
+        $criteria = Criteria::none();
+
+        $result = $criteriaBuilder->paginate($criteria);
+
+        $this->assertEquals('paginated_records', $result);
     }
 
     protected function tearDown(): void

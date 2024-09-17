@@ -19,12 +19,11 @@ class FilterFactory
     public static function create(FilterOperator $operator, array $relations = []): QueryFilter
     {
 
-        // 👉 - Si el filtro tiene relaciones, se crea un filtro de relación.
+        // Si hay relaciones, se crea un filtro de relaciones
         if (!empty($relations)) {
             return new RelationFilter();
         }
 
-        // 👉 - Se crea un filtro según el operador.
         return match ($operator->value) {
             Operator::IS_NULL => new IsNullFilter(),
             Operator::IS_NOT_NULL => new IsNotNullFilter(),
@@ -32,7 +31,6 @@ class FilterFactory
             Operator::LIKE => new LikeFilter(),
             Operator::NOT_LIKE => new NotLikeFilter(),
             Operator::EQUAL => new EqualFilter(),
-            // Otros operadores...
             default => throw new \InvalidArgumentException("Operador no soportado: " . $operator->value),
         };
     }

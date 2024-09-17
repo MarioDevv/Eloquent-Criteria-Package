@@ -1,44 +1,76 @@
 <?php
-declare(strict_types=1);
 
 namespace Mariodevv\EloquentCriteriaPackage\Infrastructure\Criteria;
 
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Criteria;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Filter;
+use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\QueryAdapter;
 
 class CriteriaBuilder
 {
+    private QueryAdapter $adapter;
 
-    /**
-     * @param EloquentBuilder $query
-     * @param Criteria $criteria
-     * @return EloquentBuilder
-     * Función para aplicar un criterio a una consulta.
-     * Se recorren los filtros del criterio y se aplican a la consulta.
-     */
-    public function apply(EloquentBuilder $query, Criteria $criteria): EloquentBuilder
+    public function __construct(QueryAdapter $adapter)
     {
-        foreach ($criteria->filters->value as $filter) {
-            $query = $this->applyFilter($query, $filter);
-        }
-
-        $orderBy = $criteria->hasOrder() ? $criteria->order->orderBy->value : 'created_at';
-        $orderType = $criteria->hasOrder() ? $criteria->order->orderType->value->value : 'desc';
-
-        return $query->orderBy($orderBy, $orderType);
+        $this->adapter = $adapter;
     }
 
     /**
-     * @param EloquentBuilder $query
-     * @param Filter $filter
-     * @return EloquentBuilder
-     * Se delega el manejo del filtro a la clase correspondiente.
+     * Pagina los resultados basados en los criterios.
+     * @param Criteria $criteria
+     * @return mixed
      */
-    private function applyFilter(EloquentBuilder $query, Filter $filter): EloquentBuilder
+    public function paginate(Criteria $criteria)
     {
-        // Usamos la fábrica de filtros para obtener la clase adecuada
-        $queryFilter = FilterFactory::create($filter->operator, $filter->relations);
-        return $queryFilter->apply($query, $filter);
+        $query = $this->applyCriteria($criteria);
+        return $query->paginate($criteria->pageSize, ['*'], 'page', $criteria->pageNumber);
+    }
+
+    /**
+     * Encuentra un único registro basado en los criterios.
+     * @param Criteria $criteria
+     * @return mixed
+     */
+    public function findOne(Criteria $criteria)
+    {
+        $query = $this->applyCriteria($criteria);
+        return $query->first();
+    }
+
+    /**
+     * Encuentra múltiples registros basados en los criterios.
+     * @param Criteria $criteria
+     * @return mixed
+     */
+    public function findMany(Criteria $criteria)
+    {
+        $query = $this->applyCriteria($criteria);
+        return $query->get();
+    }
+
+    /**
+     * Encuentra todos los registros sin tener en cuenta los criterios.
+     * @return mixed
+     */
+    public function findAll()
+    {
+        return $this->adapter->getQuery()->get();
+    }
+
+    /**
+     * Aplica los criterios al adaptador y retorna el query modificado.
+     * @param Criteria $criteria
+     * @return mixed
+     */
+    private function applyCriteria(Criteria $criteria)
+    {
+        foreach ($criteria->filters->value as $filter) {
+            $this->adapter->applyFilter($filter);
+        }
+
+        if ($criteria->hasOrder()) {
+            $this->adapter->applyOrder($criteria->order);
+        }
+
+        return $this->adapter->getQuery();
     }
 }
