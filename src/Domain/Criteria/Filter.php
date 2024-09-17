@@ -2,6 +2,8 @@
 
 namespace Mariodevv\EloquentCriteriaPackage\Domain\Criteria;
 
+use Carbon\Carbon;
+
 class Filter
 {
     public function __construct(
@@ -26,6 +28,8 @@ class Filter
             Operator::NOT_LIKE->value => fn() => $this->validateString(),
             Operator::IS_NULL->value => fn() => $this->validateNull(),
             Operator::IS_NOT_NULL->value => fn() => $this->validateNull(),
+            Operator::WHERE_DATE->value => fn() => $this->validateDate(),
+            Operator::EQUAL->value => fn() => $this->validateNotNull(),
         ];
 
 
@@ -54,6 +58,22 @@ class Filter
     {
         if (!is_null($this->value->value)) {
             throw new \InvalidArgumentException('The value for IS NULL/IS NOT NULL operator must be null.');
+        }
+    }
+
+    private function validateDate(): void
+    {
+        try {
+            Carbon::parse($this->value->value)->format('Y-m-d H:i:s');
+        } catch (\Exception $e) {
+            throw new \InvalidArgumentException('The value for WHERE DATE operator must be a valid date string.');
+        }
+    }
+
+    private function validateNotNull(): void
+    {
+        if (is_null($this->value->value)) {
+            throw new \InvalidArgumentException('The value for EQUAL operator must not be null.');
         }
     }
 
