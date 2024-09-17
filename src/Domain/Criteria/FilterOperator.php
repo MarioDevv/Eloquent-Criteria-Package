@@ -16,6 +16,7 @@ enum Operator: string {
     case IS_NULL = 'is null';
     case IS_NOT_NULL = 'is not null';
     case WHERE_DATE = 'whereDate';
+    
 }
 
 class FilterOperator

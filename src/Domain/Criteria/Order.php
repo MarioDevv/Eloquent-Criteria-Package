@@ -3,10 +3,6 @@ declare (strict_types = 1);
 
 namespace Mariodevv\EloquentCriteriaPackage\Domain\Criteria;
 
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\OrderBy;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\OrderType;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\OrderTypes;
-
 
 class Order
 {

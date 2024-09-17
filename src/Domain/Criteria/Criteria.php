@@ -1,9 +1,7 @@
 <?php
-declare (strict_types = 1);
+declare(strict_types=1);
 
 namespace Mariodevv\EloquentCriteriaPackage\Domain\Criteria;
-
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\Filters;
 
 
 class Criteria
@@ -20,11 +18,11 @@ class Criteria
     }
 
     public static function fromValues(
-        array $filters = [],
         ?string $orderBy,
         ?string $orderType,
         int $pageSize = null,
         int $pageNumber = null,
+        array $filters = [],
         array $relations = []
     ): self {
         return new self(

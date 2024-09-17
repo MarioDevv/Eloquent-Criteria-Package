@@ -3,9 +3,6 @@ declare (strict_types = 1);
 
 namespace Mariodevv\EloquentCriteriaPackage\Domain\Criteria;
 
-use Src\Shared\Domain\Criteria\FilterValue;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\FilterField;
-use Mariodevv\EloquentCriteriaPackage\Domain\Criteria\FilterOperator;
 
 class Filter
 {
@@ -18,13 +15,6 @@ class Filter
 
     public static function fromValues(string $field, string $operator, ?string $value, array $relations): self
     {
-
-        $value = match ($operator) {
-            'like'     => "%$value%",
-            'not like' => "%$value%",
-            'is null'  => null,
-            default    => $value,
-        };
 
         return new self(
             new FilterField($field),
