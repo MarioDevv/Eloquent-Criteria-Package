@@ -43,7 +43,3 @@ Si deseas contribuir al desarrollo de este paquete o reportar errores, siéntete
 ## Licencia
 
 Este paquete está licenciado bajo la [Licencia MIT](LICENSE).
-
----
-
-Espero que te resulte útil. Si necesitas hacer ajustes o agregar más detalles, avísame.
