@@ -44,8 +44,38 @@ class RelationFilterTest extends TestCase
         $this->assertInstanceOf(Builder::class, $result);
     }
 
+    public function test_relation_filter_applies_correctly_with_multiple_relations()
+    {
+        $builder = Mockery::mock(Builder::class);
+
+        // Simulamos el comportamiento de whereHas para relaciones
+        $builder->shouldReceive('whereHas')
+            ->once()
+            ->with('posts.comments.likes', Mockery::on(function ($callback) {
+                $relatedQuery = Mockery::mock(Builder::class);
+                $relatedQuery->shouldReceive('where')
+                    ->once()
+                    ->with('content', '=', 'Good comment');
+                $callback($relatedQuery);
+                return true;
+            }))
+            ->andReturnSelf();
+
+        $filter = new Filter(
+            new FilterField('content'),
+            new FilterOperator(Operator::EQUAL),
+            new FilterValue('Good comment'),
+            ['posts', 'comments', 'likes']
+        );
+
+        $relationFilter = new RelationFilter();
+        $result = $relationFilter->apply($builder, $filter);
+
+        $this->assertInstanceOf(Builder::class, $result);
+    }
+
     protected function tearDown(): void
     {
-        Mockery::close();
+        Mockery::close(); 
     }
 }
